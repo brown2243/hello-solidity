@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "planbcoding.vscode-react-refactor",
+    "pkief.material-icon-theme",
+    "eamodio.gitlens",
+    "usernamehw.errorlens",
+    "NomicFoundation.hardhat-solidity",
+    "JuanBlanco.solidity"
+  ]
+}

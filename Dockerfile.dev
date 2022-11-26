@@ -1,0 +1,16 @@
+FROM ubuntu:20.04
+
+ENV LC_ALL=C.UTF-8
+
+RUN apt-get update &&\
+    apt-get -qq -y install build-essential vim wget jq curl
+
+# Node
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
+RUN apt-get install -y nodejs &&\ 
+    npm i -g npm yarn
+
+# 
+WORKDIR /usr/app
+
+EXPOSE 80
