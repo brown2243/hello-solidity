@@ -1,3 +1,6 @@
 [submodule "test-dex_solidity"]
 	path = test-dex_solidity
 	url = https://github.com/Solidity-DEX/test-dex_solidity.git
+[submodule "hardhat-boilerplate"]
+	path = hardhat-boilerplate
+	url = https://github.com/NomicFoundation/hardhat-boilerplate.git

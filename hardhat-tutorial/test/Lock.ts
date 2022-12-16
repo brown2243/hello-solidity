@@ -34,6 +34,7 @@ describe("Lock", function () {
       const ownerBalance = await hardhatToken.balanceOf(owner.address);
       expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
     });
+
     it("Should transfer tokens between accounts", async function () {
       const [owner, addr1, addr2] = await ethers.getSigners();
 

@@ -6,7 +6,7 @@
     "pkief.material-icon-theme",
     "eamodio.gitlens",
     "usernamehw.errorlens",
-    "NomicFoundation.hardhat-solidity",
-    "JuanBlanco.solidity"
+    "NomicFoundation.hardhat-solidity"
+    // "JuanBlanco.solidity"
   ]
 }
