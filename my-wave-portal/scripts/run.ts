@@ -1,17 +1,25 @@
 import { ethers } from "hardhat";
 
 const main = async () => {
-  const [deployer] = await ethers.getSigners();
-  const accountBalance = await deployer.getBalance();
-
-  console.log("Deploying contracts with account: ", deployer.address);
-  console.log("Account balance: ", accountBalance.toString());
-
+  const [owner, randomPerson] = await ethers.getSigners();
   const waveContractFactory = await ethers.getContractFactory("WavePortal");
   const waveContract = await waveContractFactory.deploy();
   await waveContract.deployed();
 
-  console.log("WavePortal address: ", waveContract.address);
+  console.log("Contract deployed to:", waveContract.address);
+  console.log("Contract deployed by:", owner.address);
+
+  await waveContract.getTotalWaves();
+
+  const firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  await waveContract.getTotalWaves();
+
+  const secondWaveTxn = await waveContract.connect(randomPerson).wave();
+  await secondWaveTxn.wait();
+
+  await waveContract.getTotalWaves();
 };
 
 const runMain = async () => {

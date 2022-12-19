@@ -6,7 +6,8 @@ RUN apt-get update &&\
     apt-get -qq -y install build-essential vim wget jq curl
 
 # Node 
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash &&\
+# RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash &&\
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash &&\
     apt-get install -y nodejs &&\ 
     npm i -g npm yarn
 
