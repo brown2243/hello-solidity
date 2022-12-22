@@ -4,7 +4,7 @@ import "./App.css";
 
 import abi from "./utils/WavePortal.json";
 
-const contractAddress = "0xeFbc69D298080801972d7bcf484949bcf1361939";
+const contractAddress = "0x7a5E6aAc1391067d4C2D13c0f92159Dc8dDf3dC2";
 const contractABI = abi.abi;
 const getEthereumObject = () => window.ethereum;
 /*
@@ -74,7 +74,44 @@ export default function App() {
       }
     });
   }, []);
+  /**
+   * Listen in for emitter events!
+   */
+  useEffect(() => {
+    let wavePortalContract;
 
+    const onNewWave = (from, timestamp, message) => {
+      console.log("NewWave", from, timestamp, message);
+      setAllWaves((prevState) => [
+        ...prevState,
+        {
+          address: from,
+          timestamp: new Date(timestamp * 1000),
+          message: message,
+        },
+      ]);
+    };
+
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      console.log("signer", signer);
+      wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+      console.log("wavePortalContract", wavePortalContract);
+      wavePortalContract.on("NewWave", onNewWave);
+    }
+
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off("NewWave", onNewWave);
+      }
+    };
+  }, []);
   const getAllWaves = async () => {
     try {
       const { ethereum } = window;
@@ -135,7 +172,9 @@ export default function App() {
         /*
          * Execute the actual wave from your smart contract
          */
-        const waveTxn = await wavePortalContract.wave("this is a message");
+        const waveTxn = await wavePortalContract.wave("this is a message", {
+          gasLimit: 300000,
+        });
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
